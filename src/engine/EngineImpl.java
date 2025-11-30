@@ -2,14 +2,16 @@ package engine;
 
 import commands.Command;
 import commands.CountComponentsCommand;
+import engine.interfaces.Engine;
 import utils.Messages;
 
 import java.util.Scanner;
 
-public final class Engine {
+public final class EngineImpl implements Engine {
 
     private static final Scanner scanner = new Scanner(System.in);
 
+    @Override
     public void start(String[] args) throws Exception {
 
         if (args.length != 1) {
@@ -18,7 +20,7 @@ public final class Engine {
         }
 
         String file = args[0];
-        ComponentCounter counter = new ComponentCounter();
+        ComponentCounterImpl counter = new ComponentCounterImpl();
         GridSizeInfo info = counter.inspect(file);
 
         boolean forceDSU = false;

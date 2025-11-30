@@ -1,6 +1,6 @@
 package commands;
 
-import engine.ComponentCounter;
+import engine.ComponentCounterImpl;
 import engine.ComponentResult;
 
 public final class CountComponentsCommand implements Command {
@@ -15,7 +15,7 @@ public final class CountComponentsCommand implements Command {
 
     @Override
     public void execute() throws Exception {
-        ComponentCounter counter = new ComponentCounter();
+        ComponentCounterImpl counter = new ComponentCounterImpl();
 
         ComponentResult result = counter.compute(file, useDSU);
 

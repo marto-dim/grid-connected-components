@@ -5,6 +5,7 @@ import algos.ConnectedComponentsBasic;
 import algos.ConnectedComponentsQuery;
 import algos.implementations.sw_uf.SW_UF;
 import algos.implementations.wqu_pc.WQU_PC;
+import engine.interfaces.ComponentCounter;
 import grid.FileGrid;
 import grid.StreamingFileGrid;
 import grid.interfaces.Grid;
@@ -14,10 +15,11 @@ import grid.interfaces.Grid;
  * runs WQU_PC or SW_UF,
  * and returns results.
  */
-public final class ComponentCounter {
+public final class ComponentCounterImpl implements ComponentCounter {
 
     private static final long WQU_PC_LIMIT = 200_000_000L;  // 200M cells
 
+    @Override
     public GridSizeInfo inspect(String file) throws Exception {
         StreamingFileGrid sg = new StreamingFileGrid(file);
         long cells = (long) sg.rows() * sg.cols();
@@ -25,6 +27,7 @@ public final class ComponentCounter {
         return new GridSizeInfo(sg.rows(), sg.cols(), cells, dsuAllowed);
     }
 
+    @Override
     public ComponentResult compute(String file, boolean forceDSU) throws Exception {
 
         GridSizeInfo info = inspect(file);
@@ -36,11 +39,11 @@ public final class ComponentCounter {
             return runWQU_PC(file);
         }
 
-        // If DSU allowed but NOT forced → ask user in Engine
+        // If WQU_PC allowed but NOT forced → ask user in EngineImpl
         return runSWUF(file);
     }
 
-    public ComponentResult runWQU_PC(String file) throws Exception {
+    private ComponentResult runWQU_PC(String file) throws Exception {
         Grid grid = new FileGrid(file);
 
         long start = System.nanoTime();
@@ -53,7 +56,7 @@ public final class ComponentCounter {
         return new ComponentResult(comps, true, dsu);
     }
 
-    public ComponentResult runSWUF(String file) throws Exception {
+    private ComponentResult runSWUF(String file) throws Exception {
         StreamingFileGrid sg = new StreamingFileGrid(file);
 
         long start = System.nanoTime();

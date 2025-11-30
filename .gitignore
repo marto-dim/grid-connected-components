@@ -53,3 +53,6 @@ replay_pid*
 
 ### Mac OS ###
 .DS_Store
+
+### txt ###
+*.txt

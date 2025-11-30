@@ -1,4 +1,4 @@
-package grid;
+package grid.interfaces;
 
 /**
  * Stream-based grid where rows are consumed one by one.

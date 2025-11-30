@@ -1,7 +1,7 @@
 package algos.implementations.sw_uf;
 
 import algos.ConnectedComponentsBasic;
-import grid.StreamingGrid;
+import grid.interfaces.StreamingGrid;
 
 import java.util.Arrays;
 

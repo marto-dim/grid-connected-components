@@ -5,8 +5,8 @@ import algos.ConnectedComponentsQuery;
 import algos.implementations.sw_uf.SW_UF;
 import algos.implementations.wqu_pc.WQU_PC;
 
-import grid.Grid;
-import grid.StreamingGrid;
+import grid.interfaces.Grid;
+import grid.interfaces.StreamingGrid;
 
 public final class BenchmarkRunner {
 

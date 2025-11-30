@@ -1,6 +1,6 @@
 package benchmarks;
 
-import grid.Grid;
+import grid.interfaces.Grid;
 import java.util.Random;
 
 public final class RandomFullGrid implements Grid {

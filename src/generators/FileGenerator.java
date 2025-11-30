@@ -1,4 +1,4 @@
-package algos.generators;
+package generators;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

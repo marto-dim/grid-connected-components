@@ -1,4 +1,4 @@
-package grid;
+package grid.interfaces;
 
 /**
  * Represents a fully loaded 2D boolean grid.

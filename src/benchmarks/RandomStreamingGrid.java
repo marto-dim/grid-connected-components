@@ -1,6 +1,6 @@
 package benchmarks;
 
-import grid.StreamingGrid;
+import grid.interfaces.StreamingGrid;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Random;

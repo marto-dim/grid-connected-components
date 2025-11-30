@@ -1,7 +1,7 @@
 package algos.implementations.wqu_pc;
 
 import algos.ConnectedComponentsQuery;
-import grid.Grid;
+import grid.interfaces.Grid;
 import models.Point2D;
 
 /**

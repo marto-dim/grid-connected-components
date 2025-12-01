@@ -5,6 +5,7 @@ import algos.ConnectedComponentsBasic;
 import algos.ConnectedComponentsQuery;
 import algos.implementations.sw_uf.SW_UF;
 import algos.implementations.wqu_pc.WQU_PC;
+import engine.dto.GridSizeInfo;
 import engine.interfaces.ComponentCounter;
 import grid.FileGrid;
 import grid.StreamingFileGrid;
@@ -28,18 +29,17 @@ public final class ComponentCounterImpl implements ComponentCounter {
     }
 
     @Override
-    public ComponentResult compute(String file, boolean forceDSU) throws Exception {
+    public ComponentResult compute(String file, boolean useWQU_PC) throws Exception {
 
         GridSizeInfo info = inspect(file);
 
-        if (forceDSU && !info.dsuAllowed())
+        if ( useWQU_PC && !info.wqu_pcPossible() )
             throw new IllegalArgumentException("WQU_PC not allowed for grid this large");
 
-        if (forceDSU) {
+        if ( useWQU_PC ) {
             return runWQU_PC(file);
         }
 
-        // If WQU_PC allowed but NOT forced → ask user in EngineImpl
         return runSWUF(file);
     }
 
@@ -47,13 +47,13 @@ public final class ComponentCounterImpl implements ComponentCounter {
         Grid grid = new FileGrid(file);
 
         long start = System.nanoTime();
-        ConnectedComponentsQuery dsu = new WQU_PC(grid);
-        int comps = dsu.count();
+        ConnectedComponentsQuery wqu_pc_query = new WQU_PC(grid);
+        int comps = wqu_pc_query.count();
         long time = System.nanoTime() - start;
 
         System.out.printf("WQU_PC runtime: %.3f ms%n", time / 1_000_000.0);
 
-        return new ComponentResult(comps, true, dsu);
+        return new ComponentResult(comps, true, wqu_pc_query);
     }
 
     private ComponentResult runSWUF(String file) throws Exception {

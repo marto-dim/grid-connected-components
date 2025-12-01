@@ -20,7 +20,7 @@ public final class StreamingFileGrid implements StreamingGrid {
     private final int cols;
 
     private final FileInputStream in;
-    private final byte[] buffer;
+    private byte[] buffer;
 
     private int currentRow = 0;
 
@@ -38,8 +38,6 @@ public final class StreamingFileGrid implements StreamingGrid {
         String[] parts = sb.toString().trim().split("\\s+");
         rows = Integer.parseInt(parts[0]);
         cols = Integer.parseInt(parts[1]);
-
-        buffer = new byte[cols];
     }
 
     @Override public int rows() { return rows; }
@@ -57,6 +55,11 @@ public final class StreamingFileGrid implements StreamingGrid {
             throw new RuntimeException("No more rows");
 
         try {
+            // Lazy allocate the buffer
+            if (buffer == null) {
+                buffer = new byte[cols];
+            }
+
             int n = in.read(buffer, 0, cols);
             if (n != cols)
                 throw new IOException("Unexpected EOF at row " + currentRow);

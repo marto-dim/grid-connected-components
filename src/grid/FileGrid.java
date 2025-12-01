@@ -10,7 +10,7 @@ import java.util.Iterator;
 /**
  * Full in-memory grid loader.
  *
- * Suitable for WQU_PC (query-enabled DSU).
+ * Suitable for WQU_PC (query-enabled WQU_PC).
  * Loads the entire grid into a boolean[][] matrix.
  *
  * Format:
@@ -31,8 +31,8 @@ public final class FileGrid implements Grid, Iterable<boolean[]> {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 
             String[] dims = br.readLine().trim().split("\\s+");
-            this.rows = Integer.parseInt(dims[0]);
-            this.cols = Integer.parseInt(dims[1]);
+            rows = Integer.parseInt(dims[0]);
+            cols = Integer.parseInt(dims[1]);
 
             matrix = new boolean[rows][cols];
 
@@ -57,22 +57,15 @@ public final class FileGrid implements Grid, Iterable<boolean[]> {
     }
 
     @Override public int rows() { return rows; }
-
     @Override public int cols() { return cols; }
-
-    @Override
-    public boolean isMarked(int row, int col) {
-        return matrix[row][col];
-    }
+    @Override public boolean isMarked(int row, int col) { return matrix[row][col]; }
 
     @Override
     public Iterator<boolean[]> iterator() {
         return new Iterator<>() {
             private int index = 0;
-
-            @Override public boolean hasNext() { return index < rows; }
-
-            @Override public boolean[] next() { return matrix[index++]; }
+            @Override public boolean   hasNext() { return index < rows;    }
+            @Override public boolean[] next()    { return matrix[index++]; }
         };
     }
 }

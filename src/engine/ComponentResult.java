@@ -11,20 +11,20 @@ import algos.ConnectedComponentsQuery;
 public final class ComponentResult {
 
     private final int components;
-    private final boolean usedDSU;
+    private final boolean usedWQU_PC;
     private final ConnectedComponentsQuery queryApi;
 
-    public ComponentResult(int comps, boolean usedDSU, ConnectedComponentsQuery queryApi) {
+    public ComponentResult(int comps, boolean usedWQU_PC, ConnectedComponentsQuery queryApi) {
         this.components = comps;
-        this.usedDSU = usedDSU;
+        this.usedWQU_PC = usedWQU_PC;
         this.queryApi = queryApi;
     }
 
     public int components() { return components; }
-    public boolean usedDSU() { return usedDSU; }
+    public boolean usedWQU_PC() { return usedWQU_PC; }
 
     public ConnectedComponentsQuery queryApi() {
-        if (!usedDSU)
+        if ( !usedWQU_PC )
             throw new UnsupportedOperationException("Query API not available for SW_UF");
         return queryApi;
     }

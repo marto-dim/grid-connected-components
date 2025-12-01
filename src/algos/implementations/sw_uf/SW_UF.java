@@ -73,6 +73,7 @@ public final class SW_UF implements ConnectedComponentsBasic {
 
     private int safeMaxLabels(int ROWS, int COLS) {
         long maxLong = (long) (0.25 * ROWS * (long) COLS);
+        if (maxLong < 16) maxLong = 16;
         if (maxLong > Integer.MAX_VALUE - 5)
             throw new IllegalArgumentException("Grid too large for SW_UF.");
         return (int) maxLong;

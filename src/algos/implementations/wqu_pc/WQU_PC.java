@@ -4,6 +4,8 @@ import algos.ConnectedComponentsQuery;
 import grid.interfaces.Grid;
 import models.Point2D;
 
+import java.util.Arrays;
+
 /**
  * Full-grid Weighted Quick Union with Path Compression.
  *
@@ -25,6 +27,7 @@ public final class WQU_PC implements ConnectedComponentsQuery {
     private final int[] id;
 
     private int components;
+    private int[] figureIndex;
 
     public WQU_PC(Grid grid) {
         this.grid = grid;
@@ -44,7 +47,9 @@ public final class WQU_PC implements ConnectedComponentsQuery {
     @Override
     public int find(Point2D p) {
         int mapped = id[index(p.row(), p.col())];
-        return mapped < 0 ? -1 : findRoot(mapped);
+        if (mapped < 0) return -1;
+        int root = findRoot(mapped);
+        return figureIndex[root];
     }
 
     @Override
@@ -54,7 +59,10 @@ public final class WQU_PC implements ConnectedComponentsQuery {
         return ra >= 0 && ra == rb;
     }
 
-    @Override public int count() { return components; }
+    @Override public int count() {
+        finalizeComponentIndexes();
+        return components;
+    }
 
     // === Initialization ===
     private void initializeIds() {
@@ -91,6 +99,25 @@ public final class WQU_PC implements ConnectedComponentsQuery {
                 if ( row > 0 && grid.isMarked(row - 1, col) ) {
                     if ( union(cur, id[index(row - 1, col)]) ) components--;
                 }
+            }
+        }
+    }
+
+    private void finalizeComponentIndexes() {
+
+        figureIndex = new int[parent.length];
+        Arrays.fill(figureIndex, -1);
+
+        int next = 0;
+
+        for (int idValue = 0; idValue < parent.length; idValue++) {
+
+            if (parent[idValue] == 0 && idValue != 0) continue;
+
+            int root = findRoot(idValue);
+
+            if (figureIndex[root] == -1) {
+                figureIndex[root] = next++;
             }
         }
     }

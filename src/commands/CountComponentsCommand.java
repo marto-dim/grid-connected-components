@@ -1,7 +1,7 @@
 package commands;
 
 import engine.ComponentCounterImpl;
-import engine.ComponentResult;
+import engine.dto.ComponentResult;
 import engine.interfaces.ComponentCounter;
 
 public final class CountComponentsCommand implements Command {

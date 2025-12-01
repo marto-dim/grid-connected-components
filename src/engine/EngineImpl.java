@@ -3,6 +3,7 @@ package engine;
 import commands.Command;
 import commands.CommandContext;
 import commands.CountComponentsCommand;
+import engine.dto.ComponentResult;
 import engine.dto.GridSizeInfo;
 import engine.interfaces.ComponentCounter;
 import engine.interfaces.Engine;

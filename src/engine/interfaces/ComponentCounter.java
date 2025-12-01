@@ -1,6 +1,6 @@
 package engine.interfaces;
 
-import engine.ComponentResult;
+import engine.dto.ComponentResult;
 import engine.dto.GridSizeInfo;
 
 public interface ComponentCounter {

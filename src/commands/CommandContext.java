@@ -1,6 +1,6 @@
 package commands;
 
-import engine.ComponentResult;
+import engine.dto.ComponentResult;
 
 public final class CommandContext {
     private ComponentResult result;

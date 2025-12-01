@@ -5,6 +5,7 @@ import algos.ConnectedComponentsBasic;
 import algos.ConnectedComponentsQuery;
 import algos.implementations.sw_uf.SW_UF;
 import algos.implementations.wqu_pc.WQU_PC;
+import engine.dto.ComponentResult;
 import engine.dto.GridSizeInfo;
 import engine.interfaces.ComponentCounter;
 import grid.FileGrid;

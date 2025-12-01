@@ -42,7 +42,7 @@ public final class ResizableUF {
         System.arraycopy(rank, 0, newRank, 0, capacity);
 
         for (int i = capacity; i < newCap; i++) {
-            newParent[i] = i;    // fresh singleton set
+            newParent[i] = i;
             newRank[i] = 0;
         }
 

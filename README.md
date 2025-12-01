@@ -64,3 +64,133 @@ Does **not** support `find()` or `connected()` queries because the grid is proce
 - Together, they allow this tool to handle everything from tiny test inputs to multi-gigabyte grid files.
 
 ---
+
+## Why this design?
+
+- **WQU_PC** provides full functionality.
+- **SW_UF** provides extreme scalability.
+- Together, they allow this tool to handle everything from tiny test inputs to multi-gigabyte grid files.
+
+---
+
+# 📦 Full API Overview
+
+This section explains all the public interfaces and how the system is structured.
+
+---
+
+## Grid Interfaces
+
+Two different grid abstractions are supported.
+
+### **1. Full Grid (for WQU_PC)**
+
+```java
+public interface Grid {
+    int rows();
+    int cols();
+    boolean isMarked(int r, int c);
+}
+```
+
+### **2. Streaming Grid (for SW_UF)**
+
+```java
+public interface StreamingGrid {
+    int rows();
+    int cols();
+    boolean hasNextRow();
+    boolean[] nextRow();
+}
+```
+
+Reads the grid one row at a time.
+Memory usage is exactly one row + auxiliary O(cols) label arrays.
+
+# 🧮 Connected Components APIs
+
+Two complementary algorithm-level APIs exist:
+
+---
+
+### **Basic counting-only API (SW_UF)**
+
+```java
+public interface ConnectedComponentsBasic {
+    int count();
+}
+```
+
+Used by streaming mode; provides only the total number of components.
+
+### **Full query API (WQU_PC)**
+
+```java
+public interface ConnectedComponentsQuery 
+        extends ConnectedComponentsBasic {
+
+    int find(Point2D p);
+    boolean connected(Point2D a, Point2D b);
+}
+```
+
+This allows the user to:
+ - ask which figure a cell belongs to
+ - ask whether two cells belong to the same component
+
+# ⚙️ Engine and Execution Flow
+The Engine is responsible for:
+ - Reading grid dimensions
+ - Selecting the appropriate algorithm
+ - Running it
+ - Entering interactive mode (if WQU_PC was used)
+
+### **Key API**
+```java
+public interface ComponentCounter {
+GridSizeInfo inspect(String file);
+ComponentResult compute(String file, boolean useWQU_PC);
+}
+```
+
+### **Interactive Mode (WQU_PC only)**
+After computing components using WQU_PC, the program enters an interactive shell.
+
+Commands
+ - find r c
+ - connected r1 c1 r2 c2
+ - exit
+
+# ⚗️ Algorithm Details
+
+## **WQU_PC — Full Grid Union–Find**
+Layout
+ - Each marked cell receives a unique ID:
+
+```java
+id[row][col] = next++
+```
+
+Unions are applied to:
+ - the left neighbor
+ - the upper neighbor
+
+Core WQU_PC
+ - parent[] - parent pointer
+ - size[]   - weighted union
+ - path compression inside findRoot()
+
+Memory Usage
+For N cells:
+```java
+parent[N] + size[N] + id[N]
+```
+
+## **SW_UF — Sliding Window Union–Find (Streaming)**
+Maintain only:
+ - prevRow[] – previous row’s bits
+ - prevLab[] – previous row’s labels
+ - currLab[] – current row’s labels
+ - a small, dynamically growing Union–Find
+
+

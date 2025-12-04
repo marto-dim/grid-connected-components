@@ -29,7 +29,7 @@ public final class RandomStreamingGrid implements StreamingGrid {
 
     @Override
     public boolean[] nextRow() {
-        if (!hasNextRow())
+        if ( !hasNextRow() )
             throw new NoSuchElementException("No more rows.");
 
         for (int c = 0; c < cols; c++) {

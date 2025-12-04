@@ -65,14 +65,6 @@ Does **not** support `find()` or `connected()` queries because the grid is proce
 
 ---
 
-## Why this design?
-
-- **WQU_PC** provides full functionality.
-- **SW_UF** provides extreme scalability.
-- Together, they allow this tool to handle everything from tiny test inputs to multi-gigabyte grid files.
-
----
-
 # 📦 Full API Overview
 
 This section explains all the public interfaces and how the system is structured.
@@ -192,5 +184,37 @@ Maintain only:
  - prevLab[] – previous row’s labels
  - currLab[] – current row’s labels
  - a small, dynamically growing Union–Find
+
+## How to Run the Program
+
+The program expects a single argument: the path to a file containing a binary grid. You can run it either through IntelliJ or from the terminal.
+
+### Running in IntelliJ
+
+1. Go to **Run → Edit Configurations**.
+2. Add a new **Application** configuration.
+3. Set the main class (e.g., `Main`).
+4. In the **Program Arguments** field, provide the path to the input file, for example: small_100x100_low.txt
+5. Run the configuration.
+
+### Running from the Terminal
+
+Provide the grid file as the single argument: java Main path/to/grid.txt
+
+### Input File Format
+
+The input file must follow this structure:
+
+N_ROWS N_COLS  
+10010101001010...  
+10101010100101...  
+...
+
+- First line: number of rows and columns.
+- Following lines: the binary grid (characters `0` and `1` only).
+
+### Generating Sample Grids
+
+You can use the `FileGenerator` located in the `generators` package to produce sample grids. Grid size and density can be adjusted to create different test scenarios.
 
 

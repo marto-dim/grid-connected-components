@@ -7,6 +7,6 @@ public interface ComponentCounter {
 
     GridSizeInfo inspect(String file) throws Exception;
 
-    ComponentResult compute(String file, boolean forceDSU) throws Exception;
+    ComponentResult compute(String file, boolean uesWQU_PC) throws Exception;
 
 }

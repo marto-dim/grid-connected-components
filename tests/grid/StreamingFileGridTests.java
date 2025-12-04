@@ -3,9 +3,7 @@ package grid;
 import grid.interfaces.StreamingGrid;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.FileWriter;
-import java.io.PrintWriter;
 
 import static org.junit.jupiter.api.Assertions.*;
 

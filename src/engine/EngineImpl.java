@@ -14,12 +14,14 @@ import java.util.Scanner;
 
 public final class EngineImpl implements Engine {
 
+    private final static byte ALLOWED_ARGUMENTS = 1;
+
     private static final Scanner scanner = new Scanner(System.in);
 
     @Override
     public void start(String[] args) throws Exception {
 
-        if (args.length != 1) {
+        if ( args.length != ALLOWED_ARGUMENTS ) {
             System.out.println("Usage:\n  java Main <gridfile>");
             return;
         }
@@ -33,7 +35,7 @@ public final class EngineImpl implements Engine {
         if ( info.wqu_pcPossible() ) {
             useWQU_PC = ( askUserChoice() == 1 );
         } else {
-            System.out.println("Grid too large for WQU_PC — using SW_UF.");
+            System.out.println("Grid too large for WQU_PC - using SW_UF.");
         }
 
         System.out.println();

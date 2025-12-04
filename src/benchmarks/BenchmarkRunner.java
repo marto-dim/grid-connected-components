@@ -57,7 +57,7 @@ public final class BenchmarkRunner {
                             (dsuResult.peakBytes() / (1024 * 1024))
                     );
 
-                    if (!swResult.result().equals(dsuResult.result()))
+                    if ( !swResult.result().equals(dsuResult.result()) )
                         System.out.println("MISMATCH!");
                     else
                         System.out.println("Results match!");

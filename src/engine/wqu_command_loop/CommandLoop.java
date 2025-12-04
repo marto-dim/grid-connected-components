@@ -16,7 +16,7 @@ public final class CommandLoop {
 
     // ---------- MESSAGES ----------
     private static final String MSG_HELP = """
-            WQU_PC interactive mode:
+             WQU_PC interactive mode:
               find r c
               connected r1 c1 r2 c2
               exit
@@ -48,9 +48,10 @@ public final class CommandLoop {
 
             switch ( cmd ) {
 
-                case CMD_EXIT      -> { System.out.println("Exiting interactive mode."); return; }
                 case CMD_FIND      -> { handleFind(parts); }
                 case CMD_CONNECTED -> { handleConnected(parts); }
+                case CMD_EXIT      -> { System.out.println("Exiting interactive mode."); return; }
+
                 default            -> System.out.println(MSG_UNKNOWN);
 
             }
@@ -69,7 +70,7 @@ public final class CommandLoop {
             int c = Integer.parseInt(p[2]);
 
             int result = wqu_pc.find(new Point2D(r, c));
-            System.out.println("find → " + result);
+            System.out.println("find -> " + result);
 
         } catch (Exception e) {
             System.out.println(MSG_USAGE_FIND);
@@ -92,7 +93,7 @@ public final class CommandLoop {
                     new Point2D(r1, c1),
                     new Point2D(r2, c2)
             );
-            System.out.println("connected → " + result);
+            System.out.println("connected -> " + result);
 
         } catch (Exception e) {
             System.out.println(MSG_USAGE_CONNECTED);

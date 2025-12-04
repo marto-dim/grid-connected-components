@@ -6,9 +6,12 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import static grid.Constants.MARKED;
+import static grid.Constants.NOT_MARKED;
+
 /**
- * Generates large grid files for testing SW_UF (streaming CCL)
- * and WQU_PC (full-grid DSU).
+ * Generates large grid files for testing SW_UF (streaming)
+ * and WQU_PC (full-grid).
  *
  * Format:
  *   rows cols
@@ -32,7 +35,7 @@ public final class FileGenerator {
     public static void generate(String fileName, int rows, int cols, double density) throws IOException {
 
         long cells = (long) rows * cols;
-        double estimatedGB = cells / 1_000_000_000.0;
+        double estimatedGB = cells / 1_000_000_000.0; // one byte per character {'1', '0', '\n'}
 
         log.info("Generating " + fileName + " (" + rows + "x" + cols +
                 ", p=" + density + ", approx=" + String.format("%.2f", estimatedGB) + " GB)");
@@ -49,14 +52,14 @@ public final class FileGenerator {
             for (int r = 0; r < rows; r++) {
                 sb.setLength(0);
                 for (int c = 0; c < cols; c++) {
-                    sb.append(rng.nextDouble() < density ? '1' : '0');
+                    sb.append( rng.nextDouble() < density ? MARKED : NOT_MARKED );
                 }
                 bw.write(sb.toString());
                 bw.newLine();
             }
         }
 
-        log.info("✔ Finished: " + fileName);
+        log.info("Finished: " + fileName);
     }
 
     /** Only blocks files larger than ~15GB */
@@ -73,9 +76,9 @@ public final class FileGenerator {
     }
 
     /**
-     * Entrypoint for generating test suites.
+     * Entrypoint for generating test grid.
      *
-     * You can run ONLY the subsets you want.
+     * You can run ONLY the subsets you want by commenting/uncommenting.
      */
     public static void main(String[] args) throws Exception {
 
@@ -98,8 +101,8 @@ public final class FileGenerator {
         generate("huge_50k_50k_low.txt", 50_000, 50_000, 0.10);
 
         // MONSTER (10GB) — ONLY uncomment when you are *sure* you want it:
-        confirmIfAbove15GB(100_000, 100_000);
-        generate("monster_100k_100k_low.txt", 100_000, 100_000, 0.10);
+        // confirmIfAbove15GB(100_000, 100_000);
+        // generate("monster_100k_100k_low.txt", 100_000, 100_000, 0.10);
 
         log.info("=== All grids generated ===");
     }

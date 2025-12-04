@@ -1,7 +1,7 @@
 package algos.implementations.sw_uf;
 
 /**
- * Dynamically resizable Union–Find (Disjoint Set Union).
+ * Dynamically resizable Union–Find.
  *
  * Supports:
  *  - find(int)

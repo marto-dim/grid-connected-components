@@ -25,7 +25,7 @@ public final class CountComponentsCommand implements Command {
 
         System.out.println("======================================");
         System.out.println("Components: " + result.components());
-        System.out.println("Algorithm: " + (result.usedWQU_PC() ? "WQU_PC (DSU)" : "SW_UF (streaming)"));
+        System.out.println("Algorithm: " + (result.usedWQU_PC() ? "WQU_PC" : "SW_UF (streaming)"));
         System.out.println("======================================");
     }
 }

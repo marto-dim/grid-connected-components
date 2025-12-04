@@ -4,7 +4,7 @@ import models.Point2D;
 
 /**
  * Extended interface allowing interactive queries,
- * supported only by full-grid DSU algorithms.
+ * supported only by full-grid WQU_PC algorithms.
  */
 public interface ConnectedComponentsQuery extends ConnectedComponentsBasic {
 

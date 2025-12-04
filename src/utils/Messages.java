@@ -7,8 +7,8 @@ public final class Messages {
     public static final String PROMPT_CHOOSE_ALGO =
             "Grid is small enough for either WQU_PC or SW_UF.\n" +
                     "Choose algorithm:\n" +
-                    "1) WQU_PC (Union-Find, slower but supports connected(a,b) and find(p))\n" +
-                    "2) SW_UF (Streaming, memory-efficient, components only)\n" +
+                    "1) WQU_PC (Full Grid Union-Find, requires extra memory but supports connected(a,b) and find(p))\n" +
+                    "2) SW_UF  (Streaming, memory-efficient, count components only)\n" +
                     "Enter choice (1 or 2): ";
 
     public static final String INVALID_CHOICE =

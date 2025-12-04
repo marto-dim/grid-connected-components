@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 
+import static grid.Constants.MARKED;
+
 /**
  * Full in-memory grid loader.
  *
@@ -36,21 +38,21 @@ public final class FileGrid implements Grid, Iterable<boolean[]> {
 
             matrix = new boolean[rows][cols];
 
-            for (int r = 0; r < rows; r++) {
+            for ( int r = 0; r < rows; r++ ) {
                 String line = br.readLine();
 
-                if (line == null)
+                if ( line == null )
                     throw new IOException("Unexpected EOF at row " + r);
 
                 line = line.trim();
 
-                if (line.length() != cols)
+                if ( line.length() != cols )
                     throw new IOException(
                             "Invalid row length at line " + r + ": expected " + cols
                     );
 
-                for (int c = 0; c < cols; c++) {
-                    matrix[r][c] = (line.charAt(c) == '1');
+                for ( int c = 0; c < cols; c++ ) {
+                    matrix[r][c] = ( line.charAt(c) == MARKED );
                 }
             }
         }

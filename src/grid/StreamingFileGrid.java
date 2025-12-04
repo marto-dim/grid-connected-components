@@ -31,7 +31,7 @@ public final class StreamingFileGrid implements StreamingGrid {
         // Read header: "ROWS COLS"
         StringBuilder sb = new StringBuilder();
         int ch;
-        while ((ch = in.read()) != -1 && ch != '\n') {
+        while ( (ch = in.read()) != -1 && ch != '\n' ) {
             sb.append((char) ch);
         }
 
